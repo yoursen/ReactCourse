@@ -1,4 +1,7 @@
 using System;
+using Application.Activities;
+using Application.Core;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +26,9 @@ builder.Services.AddCors(opt=>{
         policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
     });
 });
+
+builder.Services.AddMediatR(typeof(List.Handler));
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
 var app = builder.Build();
 
