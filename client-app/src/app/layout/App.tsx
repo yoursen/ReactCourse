@@ -4,10 +4,12 @@ import axios from 'axios';
 import { Button, Comment, Container, Header, List, ListItem } from 'semantic-ui-react';
 import { Activity } from '../modules/activity';
 import NavBar from './NavBar';
+import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
 
 function App() {
 
   const [activities, setActivites] = useState<Activity[]>([]);
+  const [selectedActivity, setSetelectedActivity] = useState<Activity | undefined>(undefined);
 
   useEffect(() => {
     axios.get<Activity[]>('http://localhost:5000/api/activities')
@@ -17,16 +19,23 @@ function App() {
       });
   }, []);
 
+  function handleSelectActivity(id: string) {
+    setSetelectedActivity(activities.find(a => a.id === id));
+  }
+
+  function handleCancelSelectActivity() {
+    setSetelectedActivity(undefined);
+  }
+
   return (
-    <> 
+    <>
       <Comment>Use empty element is the same as Using the Fragment element.</Comment>
       <NavBar />
-      <Container style={{marginTop:'7em'}}>
-        <List>
-          {activities.map((a: Activity) => (
-            <ListItem key={a.id}>{a.title}</ListItem>
-          ))}
-        </List>
+      <Container style={{ marginTop: '7em' }}>
+        <ActivityDashboard activities={activities}
+         selectedActivity={selectedActivity}
+         selectActivity={handleSelectActivity}
+         cancelSelectedActivity={handleCancelSelectActivity} />
       </Container>
 
     </>
