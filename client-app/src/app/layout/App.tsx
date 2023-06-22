@@ -10,6 +10,7 @@ function App() {
 
   const [activities, setActivites] = useState<Activity[]>([]);
   const [selectedActivity, setSetelectedActivity] = useState<Activity | undefined>(undefined);
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     axios.get<Activity[]>('http://localhost:5000/api/activities')
@@ -27,15 +28,27 @@ function App() {
     setSetelectedActivity(undefined);
   }
 
+  function handleFormOpen(id?: string){
+    id ? handleSelectActivity(id) : handleCancelSelectActivity();
+    setEditMode(true);
+  }
+
+  function handleFormClose(){
+    setEditMode(false);
+  }
+
   return (
     <>
       <Comment>Use empty element is the same as Using the Fragment element.</Comment>
-      <NavBar />
+      <NavBar openForm={handleFormOpen}/>
       <Container style={{ marginTop: '7em' }}>
         <ActivityDashboard activities={activities}
          selectedActivity={selectedActivity}
          selectActivity={handleSelectActivity}
-         cancelSelectedActivity={handleCancelSelectActivity} />
+         cancelSelectedActivity={handleCancelSelectActivity}
+         editMode={editMode} 
+         openForm={handleFormOpen}
+         closeForm={handleFormClose}/>
       </Container>
 
     </>
