@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import logo from './logo.svg'
 import axios from 'axios';
-import { Button, Comment, Container, Header, List, ListItem } from 'semantic-ui-react';
+import { Comment, Container } from 'semantic-ui-react';
 import { Activity } from '../modules/activity';
 import NavBar from './NavBar';
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
+import {v4 as uuid} from 'uuid';
 
 function App() {
 
@@ -37,6 +37,15 @@ function App() {
     setEditMode(false);
   }
 
+  function handleCreateOrEditActivity(activity: Activity){
+    activity.id 
+    ? setActivites([...activities.filter(x=>x.id !== activity.id), activity])
+    : setActivites([...activities, {...activity, id:uuid()}]);
+
+    setEditMode(false);
+    setSetelectedActivity(activity);
+  }
+
   return (
     <>
       <Comment>Use empty element is the same as Using the Fragment element.</Comment>
@@ -48,7 +57,8 @@ function App() {
          cancelSelectedActivity={handleCancelSelectActivity}
          editMode={editMode} 
          openForm={handleFormOpen}
-         closeForm={handleFormClose}/>
+         closeForm={handleFormClose}
+         createOrEdit={handleCreateOrEditActivity}/>
       </Container>
 
     </>
