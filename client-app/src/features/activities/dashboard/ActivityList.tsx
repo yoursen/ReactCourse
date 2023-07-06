@@ -1,21 +1,16 @@
-import React, { SyntheticEvent, useState } from "react";
-import { Activity } from "../../../app/modules/activity";
+import { SyntheticEvent, useState } from "react";
 import { Button, Item, Label, Segment } from "semantic-ui-react";
+import { useStore } from "../../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
-interface Props {
-    activities: Activity[];
-    selectActivity: (id: string) => void;
-    deleteActivity: (id: string) => void;
-    submitting: boolean;
-}
-
-export default function ActivityList({ activities,
-    selectActivity, deleteActivity, submitting }: Props) {
+export default observer( function ActivityList() {
     const [target, setTarget] = useState('');
+    const { activityStore } = useStore();
+    const {activities, loading} = activityStore;
 
     function handleActivityDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
         setTarget(e.currentTarget.name);
-        deleteActivity(id);
+        activityStore.deleteActivity(id);
     }
     return (
         <Segment>
@@ -30,10 +25,10 @@ export default function ActivityList({ activities,
                                 <div>{a.city}, {a.venue}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button onClick={() => selectActivity(a.id)} floated='right' color='blue'>View</Button>
+                                <Button onClick={() => activityStore.selectActivity(a.id)} floated='right' color='blue'>View</Button>
                                 <Button
                                     name={a.id}
-                                    loading={submitting && target == a.id}
+                                    loading={loading && target === a.id}
                                     onClick={(e) => handleActivityDelete(e, a.id)}
                                     floated='right' color='red'>Delete</Button>
                                 <Label basic content={a.category} />
@@ -44,4 +39,4 @@ export default function ActivityList({ activities,
             </Item.Group>
         </Segment>
     )
-}
+})

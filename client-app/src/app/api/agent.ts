@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 import { Activity } from "../modules/activity";
-import { error } from "console";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
 axios.interceptors.response.use(async response => {

@@ -28,7 +28,7 @@ namespace Application.Activities
                 if (activity != null)
                 {
                     _dataContext.Activities.Remove(activity);
-                    await _dataContext.SaveChangesAsync(cancellationToken);
+                    await _dataContext.SaveChangesAsync();
                 }
                 return Unit.Value;
             }
