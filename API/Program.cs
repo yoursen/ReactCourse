@@ -1,5 +1,6 @@
 using System;
 using API.Extensions;
+using API.Middleware;
 using Application.Activities;
 using Application.Core;
 using MediatR;
@@ -19,6 +20,8 @@ builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
