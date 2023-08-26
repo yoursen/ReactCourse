@@ -3,7 +3,7 @@ import { Button, Header, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import { useNavigate, useParams } from "react-router";
-import { Activity, ActivityFormValues } from "../../../app/modules/activity";
+import { ActivityFormValues } from "../../../app/modules/activity";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { Link } from "react-router-dom";
 import { v4 as uuid } from 'uuid';
@@ -17,7 +17,7 @@ import MyDateInput from "../../../app/common/form/MyDateInput";
 
 export default observer(function ActivityForm() {
     const { activityStore } = useStore();
-    const { createActivity, updateActivity, loading, loadActivity, loadingInitial } = activityStore;
+    const { createActivity, updateActivity, loadActivity, loadingInitial } = activityStore;
     const { id } = useParams();
     const navigate = useNavigate();
 
