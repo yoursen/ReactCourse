@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { router } from "../router/Route";
 import { store } from "../stores/store";
 import { User, UserFormValues } from "../modules/user";
-import { Photo, Profile } from "../modules/profile";
+import { Photo, Profile, UserActivity } from "../modules/profile";
 import { PaginatedResults } from "../modules/pagination";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
@@ -106,7 +106,8 @@ const Profiles = {
     deletePhoto: (id: string) => requests.del(`/photos/${id}`),
     updateProfile: (profile: Partial<Profile>) => requests.put(`/profiles`, profile),
     updateFollowing: (userName: string) => requests.post(`/follow/${userName}`, {}),
-    listFollowings: (userName: string, predicate: string) => requests.get<Profile[]>(`/follow/${userName}?predicate=${predicate}`)
+    listFollowings: (userName: string, predicate: string) => requests.get<Profile[]>(`/follow/${userName}?predicate=${predicate}`),
+    listActivities: (userName: string, predicate: string) => requests.get<UserActivity[]>(`/profiles/${userName}/activities?predicate=${predicate}`)
 }
 
 const agent = {
