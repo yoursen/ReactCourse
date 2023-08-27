@@ -49,7 +49,7 @@ export default class ActivityStore {
         params.append('pageNumber', this.pagingParams.pageNumber.toString());
         params.append('pageSize', this.pagingParams.pageSize.toString());
         this.predicate.forEach((value, key) => {
-            if (key == 'startDate') {
+            if (key === 'startDate') {
                 params.append(key, (value as Date).toISOString());
             } else {
                 params.append(key, value);
