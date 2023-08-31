@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import {Button, Header, Segment} from "semantic-ui-react";
+import { Button, Header, Segment } from "semantic-ui-react";
 import axios from 'axios';
 import ValidationError from './ValidationError';
 
 export default function TestErrors() {
-    const baseUrl = 'http://localhost:5000/api/'
+    const baseUrl = import.meta.env.VITE_API_URL;
     const [errors, setErrors] = useState(null);
 
 
@@ -29,7 +29,7 @@ export default function TestErrors() {
     }
 
     function handleValidationError() {
-        axios.post(baseUrl + 'activities', {}).catch(err => setErrors(err) );
+        axios.post(baseUrl + 'activities', {}).catch(err => setErrors(err));
     }
 
     return (
