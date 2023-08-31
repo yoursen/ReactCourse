@@ -9,8 +9,8 @@ export default observer(function LoginForm() {
     return (
         <Formik
             initialValues={{ email: '', password: '', error: null }}
-            onSubmit={(values, { setErrors }) => userStore.login(values).catch(error => setErrors({ error: 'Invalid login or password.' }))}>
-            {({ handleSubmit, isSubmitting, errors }) => (
+            onSubmit={(values, { setErrors }) => userStore.login(values).catch(error => setErrors({ error: 'Invalid login or password.' + error }))}>
+            {({ handleSubmit, errors }) => (
                 <Form className='ui form' onSubmit={handleSubmit} autoComplete="off">
                     <Header as='h2' color='teal' textAlign="center">Login to Application</Header>
                     <MyTextInput placeholder='Email' name='email' />
